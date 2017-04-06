@@ -5,10 +5,8 @@ import Trie from '../scripts/trie'
 import Node from '../scripts/node'
 const text = "/usr/share/dict/words"
 let dictionary = fs.readFileSync(text).toString().trim().split('\n')
+// require('locus')
 
-console.log(dictionary)
-
-require('locus')
 
 describe('trie', () => {
   it('a tree should return an empty head on instantiation', () => {
@@ -59,6 +57,7 @@ describe('trie', () => {
     trie.insert('pet')
     trie.insert('pen')
 
+
     let suggestion = trie.suggest('pe')
 
     assert.deepEqual(suggestion, ['pet', 'pen'])
@@ -70,10 +69,28 @@ describe('trie', () => {
 
     trie.populate(dictionary)
 
+    trie.select('catawamptious')
+    trie.select('catawamptious')
 
-    let suggestion = trie.suggest('fang')
+    let suggestion = trie.suggest('catawampti')
 
-    assert.deepEqual(suggestion, ['suggestion', 'pen'])
+    assert.deepEqual(suggestion, ['catawamptious', 'catawamptiously'])
+
+  })
+
+  it ('should count how many times a user has selected a particular word', () => {
+    let trie = new Trie()
+
+    // let suggest = trie.suggest('musi')
+    trie.insert('music')
+    trie.insert('muse')
+    trie.insert('musical')
+    trie.select('music')
+
+    // assert.equal(, [''])
+
+    // console.log(JSON.stringify(trie, null, 4))
+  
 
   })
 

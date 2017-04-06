@@ -15,7 +15,8 @@ export default class Trie  {
     let currentNode = this.head;
 
     while (word.length) {
-      let firstLetter = word.splice(0, 1);      // t
+
+      let firstLetter = word.splice(0, 1);    
 
       firstLetter = firstLetter[0];
 
@@ -26,7 +27,9 @@ export default class Trie  {
       currentNode = currentNode.children[firstLetter]
     }
 
-    currentNode.isWord = true;
+
+    currentNode.isWord = 1;
+
     this.count++
   }
 
@@ -54,13 +57,54 @@ export default class Trie  {
 
   lookDown (currentNode, prefix) {
     if (currentNode.isWord) {
-      this.suggest.push(prefix)
+
+      let wordCountTally = currentNode.isWord + ':' + prefix
+
+      this.suggest.push(wordCountTally)
+
+
     }
     Object.keys(currentNode.children).forEach((val) => {
       let tempPrefix = prefix + val
 
       this.lookDown(currentNode.children[val], tempPrefix)
     })
+
+
+  }
+
+  // sortWordCountNumbers(array){
+  // for (let i = 0; i < array.length; i++) {
+  //   for (let j = 1; j < array.length; j++) {
+  //     if (array[j - 1] < array[j]) {
+  //       [array[j - 1], array[j]] = [array[j], array[j - 1]];
+  //     }
+  //   }
+  // }
+  // return array;
+  // };
+  //
+  // suggest (word) {
+  //   this.suggest = [];
+  //   let prefix = word
+  //   let currentNode = this.find(word)
+  //
+  //   this.suggest = this.lookDown(currentNode, prefix)
+  //   // let sortedWord = sortWordCountNumbers(this.suggest)
+  //   return this.suggest
+  // }
+
+
+  sortWordCountNumbers(array) {
+    for (let i = 0; i < array.length; i++) {
+      for (let j = 1; j < array.length; j++) {
+        if (array[j - 1] < array[j]) {
+          [array[j - 1], array[j]] = [array[j], array[j - 1]];
+        }
+      }
+    }
+    return array;
+
   }
 
   suggest (word) {
@@ -72,48 +116,20 @@ export default class Trie  {
     return this.suggest
   }
 
-  store (word) {
-    let currentNode = this.head;  // a node
-
-    word = word.split('')         // [w, o, r, d]
-
-    // grab first character of word
-    let firstLetter = word[0];    // w
-
-    if (!firstLetter) {
-      return this.head;
-    }
 
 
-    // while (currentNode.children[firstLetter] && firstLetter) {
-    //   // check to see if object letter exists
-    //   // currentNode.children[firstLetter] = new Node(firstLetter)
-    //   // let remainningWord = word.slice(1)
-    //   currentNode.children[firstLetter]
-    //   currentNode = currentNode.children[firstLetter]
-    //   // reassign currentNode to one created
-    //   // reassign first letter to next letter
-    //   // loop till end of word
-    // }
+  select(userWord) {
+    let currentLetter  = this.head;
+    let letters        = userWord.split('');
 
-    let remainningWord = word.slice(1) // ord
-
-    while (!currentNode.children[firstLetter] && firstLetter) {
-      // create object for letter
-      currentNode.children[firstLetter] = new Node(firstLetter)
-
-      // move into new node by reassigning currentNode to one created
-      currentNode = currentNode.children[firstLetter]
-
-      // grab next letter
-      firstLetter = remainningWord[0] // o[] - undefined
-
-      remainningWord = remainningWord.slice(1) // rd
-      // remainningWord === ord
-    }
-
-    currentNode.isWord = true;
-    this.count++
-    return currentNode;
+    letters.forEach( letter => {
+      if (currentLetter.children[letter]) {
+        currentLetter = currentLetter.children[letter];
+      }
+      return currentLetter;
+    })
+    currentLetter.isWord > 0 ? currentLetter.isWord++ : null
+  //  if true, do this, else do that
+  
   }
 }
