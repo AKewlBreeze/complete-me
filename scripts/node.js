@@ -1,3 +1,4 @@
+
 export default class Node {
   constructor(letter) {
     this.letter = letter;
@@ -9,4 +10,5 @@ export default class Node {
 
 
 
-}
+
+

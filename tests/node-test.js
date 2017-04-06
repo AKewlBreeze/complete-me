@@ -1,3 +1,4 @@
+
 import { assert } from 'chai';
 import Node from '../scripts/node'
 
@@ -26,3 +27,4 @@ it('it should begin with an empty object as children', () => {
 })
 
 });
+

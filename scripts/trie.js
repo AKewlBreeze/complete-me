@@ -15,7 +15,8 @@ export default class Trie  {
     let currentNode = this.head;
 
     while (word.length) {
-      let firstLetter = word.splice(0, 1);      
+
+      let firstLetter = word.splice(0, 1);    
 
       firstLetter = firstLetter[0];
 
@@ -26,7 +27,9 @@ export default class Trie  {
       currentNode = currentNode.children[firstLetter]
     }
 
+
     currentNode.isWord = 1;
+
     this.count++
   }
 
@@ -37,6 +40,7 @@ export default class Trie  {
     });
 
   }
+
 
   find (word) {
     let currentNode = this.head;
@@ -53,15 +57,19 @@ export default class Trie  {
 
   lookDown (currentNode, prefix) {
     if (currentNode.isWord) {
+
       let wordCountTally = currentNode.isWord + ':' + prefix
 
       this.suggest.push(wordCountTally)
+
+
     }
     Object.keys(currentNode.children).forEach((val) => {
       let tempPrefix = prefix + val
 
       this.lookDown(currentNode.children[val], tempPrefix)
     })
+
 
   }
 
@@ -96,6 +104,7 @@ export default class Trie  {
       }
     }
     return array;
+
   }
 
   suggest (word) {
@@ -106,6 +115,7 @@ export default class Trie  {
     this.lookDown(currentNode, prefix)
     return this.suggest
   }
+
 
 
   select(userWord) {
@@ -120,5 +130,6 @@ export default class Trie  {
     })
     currentLetter.isWord > 0 ? currentLetter.isWord++ : null
   //  if true, do this, else do that
+  
   }
 }

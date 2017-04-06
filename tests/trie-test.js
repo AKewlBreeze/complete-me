@@ -7,6 +7,7 @@ const text = "/usr/share/dict/words"
 let dictionary = fs.readFileSync(text).toString().trim().split('\n')
 // require('locus')
 
+
 describe('trie', () => {
   it('a tree should return an empty head on instantiation', () => {
     let trie = new Trie()
@@ -67,6 +68,7 @@ describe('trie', () => {
     let trie = new Trie()
 
     trie.populate(dictionary)
+
     trie.select('catawamptious')
     trie.select('catawamptious')
 
@@ -88,6 +90,7 @@ describe('trie', () => {
     // assert.equal(, [''])
 
     // console.log(JSON.stringify(trie, null, 4))
+  
 
   })
 
